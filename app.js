@@ -57,31 +57,47 @@ const pauseBtn = document.querySelector("#pause")
 const resetBtn = document.querySelector("#reset")
 const displayMins = document.querySelector("#display1")
 const displaySecs = document.querySelector("#display2")
+//by default interval is undefined
 let interval, totalSecs = 0
 
 function startWatch() {
   interval = setInterval(() => {
+    //increment totalSecs every second
     totalSecs++
     updateDisplay()
   }, 1000);
 }
 
 function pauseWatch() {
-  if (interval) clearInterval(interval)
+  // if interval is not undefined clear it
+  if (interval !== undefined) {
+    clearInterval(interval)
+  }
 }
 
 function resetWatch() {
-  if (interval) clearInterval(interval)
+  // if interval is not undefined clear it
+  if (interval !== undefined) {
+    clearInterval(interval)
+  }
+
+  //reset totalSecs 
   totalSecs = 0
   updateDisplay()
 }
 
 function addZeros(number) {
-  return number < 10 ? "0" + number : number
+  if (number < 10) {
+    return "0" + number
+  } else {
+    return number
+  }
 }
 
 function updateDisplay() {
+  // trunc() cut the decimals. We only get the integer of totalSecs / 60 which represents the number of minutes
   const mins = Math.trunc(totalSecs / 60)
+  // totalSecs % 60 gives the remainder of dividing totalSecs by 60. For example 150 % 60 = 30. If totalsSecs < 60 the remainder would be equal to totalSecs for example: 50 % 60 = 50.
   const secs = totalSecs % 60
   displayMins.innerText = addZeros(mins)
   displaySecs.innerText = addZeros(secs)
