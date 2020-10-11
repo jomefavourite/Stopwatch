@@ -53,11 +53,13 @@ const displaySecs = document.querySelector("#display2")
 let interval, totalSecs = 0
 
 function startWatch() {
-  interval = setInterval(() => {
-    //increment totalSecs every second
-    totalSecs++
-    updateDisplay()
-  }, 1000);
+  if (interval === undefined) {
+    interval = setInterval(() => {
+      //increment totalSecs every second
+      totalSecs++
+      updateDisplay()
+    }, 1000);
+  }
 }
 
 function pauseWatch() {
